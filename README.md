@@ -22,3 +22,73 @@ El script principal `certificado.py` lee los datos de participación de los estu
     * Firma del Decano de la Facultad de Ingeniería Industrial (VÍCTOR ANDRÉS RINCÓN GONZÁLEZ).
 
 ## Estructura del Repositorio
+
+.
+├── Constancia/                     # Carpeta de salida para los PDFs generados
+│   └── Constancia_*.pdf
+├── Estudiantes_Sin_Identificacion/ # Carpeta de salida para el Excel de estudiantes sin ID
+│   └── Estudiantes_Sin_Identificacion.xlsx
+├── datos/
+│   ├── datos_consolidados.xlsx     # Archivo principal de entrada con los datos de los estudiantes
+│   ├── logos/
+│   │   └── fondo1.png              # Imagen de fondo para las constancias
+│   ├── Inscripción de Semilleros de Investigación.xlsx - Sheet1.csv # Datos brutos de inscripción
+│   ├── Plan de trabajo J Palomino 2023 -2.xlsx - *.csv            # Planes de trabajo semillero Turing
+│   ├── Plan de trabajo N Meneses 2023 -2.xlsx - *.csv           # Planes de trabajo semillero Gindeollanos
+│   └── Plan de trabajo N Meneses 2024-1 - FS.xlsx - *.csv         # Planes de trabajo semillero Logprox
+├── certificado.py                  # Script principal de Python para generar las constancias
+└── README.md                       # Este archivo
+
+
+## Requisitos
+
+* Python 3.x
+* Bibliotecas de Python:
+    * `pandas`
+    * `reportlab`
+    * `openpyxl` (necesario para que pandas lea archivos .xlsx)
+
+Puedes instalar las bibliotecas necesarias usando pip:
+```bash
+pip install pandas reportlab openpyxl
+Archivo de Entrada Principal
+El script utiliza el archivo datos/datos_consolidados.xlsx como fuente principal de datos. Este archivo debe tener la siguiente estructura (columnas):
+
+Periodo: El periodo académico de participación (e.g., "2024-1").
+Semillero: Nombre del semillero de investigación.
+Semestre: Semestre del estudiante en ese periodo.
+Nombre: Nombre completo del estudiante.
+Identificación: Número de identificación del estudiante.
+Nota: Es crucial que este archivo esté correctamente formateado y ubicado en la ruta datos/datos_consolidados.xlsx.
+
+Uso
+Clona o descarga el repositorio.
+
+Verifica los requisitos: Asegúrate de tener Python y las bibliotecas mencionadas instaladas.
+
+Prepara los datos:
+
+Asegúrate de que el archivo datos/datos_consolidados.xlsx contenga la información actualizada de los estudiantes.
+Verifica que la imagen de fondo datos/logos/fondo1.png esté presente.
+Ejecuta el script:
+Abre una terminal o línea de comandos, navega hasta la raíz del proyecto y ejecuta:
+
+Bash
+
+python certificado.py
+Revisa los resultados:
+
+Las constancias en PDF se guardarán en la carpeta Constancia/.
+Si hubo estudiantes sin número de identificación, se generará un archivo Estudiantes_Sin_Identificacion/Estudiantes_Sin_Identificacion.xlsx.
+Personalización (Opcional)
+Plantilla de fondo: Para cambiar la imagen de fondo, reemplaza el archivo datos/logos/fondo1.png por tu nueva imagen, manteniendo el mismo nombre y ruta, o modifica la variable fondo_certificado en certificado.py.
+Fecha de expedición: La fecha de expedición está actualmente codificada en el script ("El certificado es otorgado el día 01 de abril de 2025"). Para cambiarla, debes modificar esta línea directamente en el archivo certificado.py.
+Firmante: El nombre y cargo del firmante (VÍCTOR ANDRÉS RINCÓN GONZÁLEZ, Decano de la Facultad de Ingeniería Industrial) también están codificados en el script. Puedes modificarlos en las líneas correspondientes dentro de certificado.py.
+Consideraciones
+El script toma el nombre del semillero del primer periodo registrado para cada estudiante. Si un estudiante ha estado en múltiples semilleros y se desea un comportamiento diferente, el script necesitaría ser ajustado.
+Los nombres de archivo de salida se generan reemplazando espacios por guiones bajos y eliminando caracteres no alfanuméricos para asegurar compatibilidad.
+Posibles Mejoras Futuras
+Permitir la configuración de la fecha de expedición y los datos del firmante a través de un archivo de configuración o argumentos de línea de comandos.
+Manejo más avanzado de estudiantes que participan en múltiples semilleros en el mismo periodo o a lo largo del tiempo (e.g., permitir elegir cuál semillero mostrar o listar todos).
+Interfaz gráfica de usuario (GUI) para facilitar el uso a personal no técnico.
+Mejorar la validación de datos del archivo Excel de entrada.
